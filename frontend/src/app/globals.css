@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #F9F8F6;
+    --foreground: #181614;
+    --editorial-body: #47423B;
+    --editorial-muted: #736B61;
+    --editorial-caption: #8C8478;
+    --bronze: #9E7D47;
+    --bronze-hover: #B38E54;
+    --font-serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+    --font-sans: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html {
+    background-color: #F9F8F6;
+    color: #181614;
+    font-family: var(--font-sans);
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: #F9F8F6;
+    color: #181614;
+    min-height: 100vh;
+    overflow-x: clip;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #9E7D47;
+    color: #FFFFFF;
+  }
+
+  /* Architectural Editorial Typography */
+  h1, .hero-display {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    font-size: clamp(2.75rem, 7.5vw, 7.5rem);
+    color: #181614;
+  }
+
+  h2, .section-heading {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    color: #181614;
+  }
+
+  h3, .sub-heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    font-size: clamp(1.4rem, 2.6vw, 2.6rem);
+    color: #181614;
+  }
+
+  p {
+    color: var(--editorial-body);
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+
+  /* Editorial Utilities */
+  .editorial-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.6875rem; /* 11px */
+    font-weight: 500;
+    color: var(--bronze);
+  }
+
+  .caption-stone {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--editorial-caption);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F2EFE9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5CFC5;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9E7D47;
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Noise overlay utility */
+.noise-overlay {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Mask gradients */
+.mask-radial-vignette {
+  mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+}
+
+.mask-edge-fade {
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
