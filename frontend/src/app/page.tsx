@@ -1,5 +1,4 @@
 import HeroCinematic from '../components/home/HeroCinematic';
-import HorizontalProjects from '../components/home/HorizontalProjects';
 import PhilosophySection from '../components/home/PhilosophySection';
 import StatsSection from '../components/home/StatsSection';
 import ServicesSection from '../components/home/ServicesSection';
@@ -13,11 +12,8 @@ export default async function HomePage() {
 
   return (
     <div className="w-full relative">
-      {/* 1. Cinematic Architectural Journey Hero */}
-      <HeroCinematic />
-
-      {/* 2. Discovered Monograph Works (Horizontal Scroll) */}
-      <HorizontalProjects projects={projects} />
+      {/* 1. Cinematic Architectural Journey Hero with Interior One-by-One Project Reveal */}
+      <HeroCinematic projects={projects} />
 
       {/* 3. Architectural Philosophy (01 VISION, 02 PRECISION, 03 PURPOSE) */}
       <PhilosophySection />
