@@ -3,132 +3,15 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
-import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { ArrowDown, ArrowRight, Play } from 'lucide-react';
 import BuildingScene from '../3d/BuildingScene';
-import { Project } from '../../types';
-import { fallbackProjects } from '../../lib/api';
 
-interface HeroCinematicProps {
-  projects?: Project[];
-}
-
-interface ProjectSlideProps {
-  project: Project;
-  index: number;
-  total: number;
-  scrollYProgress: MotionValue<number>;
-}
-
-function ProjectGallerySlide({ project, index, total, scrollYProgress }: ProjectSlideProps) {
-  const step = 0.56 / total;
-  const start = 0.36 + index * step;
-  const end = start + step;
-  const pad = Math.min(0.02, step * 0.25);
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [start - pad, start + pad, end - pad, end + pad],
-    [0, 1, 1, 0]
-  );
-
-  const y = useTransform(
-    scrollYProgress,
-    [start - pad, start + pad, end - pad, end + pad],
-    [40, 0, 0, -40]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [start - pad, start + pad, end - pad, end + pad],
-    [0.96, 1, 1, 1.03]
-  );
-
-  const formattedIndex = (index + 1).toString().padStart(2, '0');
-  const formattedTotal = total.toString().padStart(2, '0');
-
-  return (
-    <motion.div
-      style={{ opacity, y, scale }}
-      className="absolute inset-0 flex items-center justify-center p-6 md:p-12 lg:p-16 pointer-events-none"
-    >
-      <div className="relative w-full max-w-6xl h-[70vh] sm:h-[72vh] max-h-[720px] rounded-sm overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between p-6 sm:p-10 lg:p-12">
-        {/* Project Background Image */}
-        <Image
-          src={project.coverImage}
-          alt={project.title}
-          fill
-          priority={index < 2}
-          className="object-cover object-center"
-        />
-        {/* Vignette Overlay for Crisp Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/50" />
-
-        {/* Top Meta Bar */}
-        <div className="relative z-10 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="px-3.5 py-1.5 bg-black/60 backdrop-blur-md border border-[#E5C378]/40 text-[#E5C378] text-[10px] sm:text-xs uppercase tracking-[0.28em] font-medium">
-              EXHIBITION PLATE {formattedIndex} / {formattedTotal}
-            </span>
-            <span className="hidden sm:inline-block px-3 py-1 bg-white/10 backdrop-blur-md text-white text-[10px] uppercase tracking-[0.22em] font-light border border-white/20">
-              {project.category}
-            </span>
-          </div>
-
-          <span className="font-serif text-3xl sm:text-4xl text-[#E5C378] font-light drop-shadow">
-            {formattedIndex}
-          </span>
-        </div>
-
-        {/* Bottom Project Specifications & Link */}
-        <div className="relative z-10 max-w-2xl space-y-3 pointer-events-auto">
-          <div className="text-[10px] sm:text-xs uppercase tracking-[0.26em] text-white/80 flex flex-wrap items-center gap-2 sm:gap-3 drop-shadow">
-            <span>{project.location}</span>
-            <span>·</span>
-            <span>{project.year}</span>
-            {project.area && (
-              <>
-                <span>·</span>
-                <span>{project.area}</span>
-              </>
-            )}
-          </div>
-
-          <h3 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-light leading-tight drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]">
-            {project.title}
-          </h3>
-
-          <p className="text-white/85 text-xs sm:text-sm md:text-base font-light line-clamp-2 sm:line-clamp-3 leading-relaxed max-w-xl drop-shadow">
-            {project.description}
-          </p>
-
-          <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-4">
-            <Link
-              href={`/projects/${project.slug}`}
-              className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-[#181614] hover:bg-[#E5C378] hover:text-[#181614] transition-all duration-300 text-xs uppercase tracking-[0.24em] font-medium shadow-2xl group"
-            >
-              <span>Explore Case Study</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
-
-            <span className="text-[10px] uppercase tracking-[0.22em] text-white/70 hidden md:inline-block">
-              Scroll down for next project ↓
-            </span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-export default function HeroCinematic({ projects = fallbackProjects }: HeroCinematicProps) {
+export default function HeroCinematic() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const items = projects && projects.length > 0 ? projects : fallbackProjects;
-  const totalProjects = items.length;
-
-  // 1. Framer Motion Scroll Pipeline across 520vh
+  // 1. Framer Motion Scroll Pipeline across 260vh
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -139,69 +22,53 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
     setScrollProgress(latest);
   });
 
-  // 2. Stage 1: Initial Editorial Hero Typography (0% -> 10%)
-  const textOpacity = useTransform(scrollYProgress, [0, 0.07, 0.10], [1, 0.4, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.10], [0, -50]);
-  const textScale = useTransform(scrollYProgress, [0, 0.10], [1, 0.96]);
+  // 2. Stage 1: Initial Editorial Hero Typography (0% -> 18%)
+  const textOpacity = useTransform(scrollYProgress, [0, 0.08, 0.16], [1, 0.5, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.16], [0, -60]);
+  const textScale = useTransform(scrollYProgress, [0, 0.16], [1, 0.95]);
 
-  // 3. Stage 2: Camera Zoom to Building Entrance (8% -> 25%)
-  const buildingScale = useTransform(scrollYProgress, [0.06, 0.25], [1.0, 3.2]);
-  const buildingOpacity = useTransform(scrollYProgress, [0.22, 0.32], [1, 0]);
+  // 3. Stage 2: Camera Zoom to Building Entrance (15% -> 60%)
+  const buildingScale = useTransform(scrollYProgress, [0.10, 0.60], [1.0, 2.8]);
+  const buildingOpacity = useTransform(scrollYProgress, [0.45, 0.65], [1, 0]);
 
-  // 4. Stage 3: Entrance Portal Close-Up (18% -> 36%)
+  // 4. Stage 3: Entrance Portal Close-Up & 3D Double Doors (50% -> 88%)
   const entranceOpacity = useTransform(
     scrollYProgress,
-    [0.16, 0.22, 0.32, 0.36],
+    [0.45, 0.58, 0.85, 0.92],
     [0, 1, 1, 0]
   );
-  const entranceScale = useTransform(scrollYProgress, [0.18, 0.36], [1.0, 1.4]);
+  const entranceScale = useTransform(scrollYProgress, [0.55, 0.90], [1.0, 1.35]);
 
-  // 5. Stage 4: Physical 2.5D Double Doors Pivot (24% -> 35%)
-  const leftDoorRotateY = useTransform(scrollYProgress, [0.24, 0.34], [0, -84]);
-  const rightDoorRotateY = useTransform(scrollYProgress, [0.24, 0.34], [0, 84]);
-  const doorsOpacity = useTransform(scrollYProgress, [0.22, 0.25, 0.33, 0.36], [0, 1, 1, 0]);
+  // Double Pivot Doors Rotate Open (60% -> 85%)
+  const leftDoorRotateY = useTransform(scrollYProgress, [0.62, 0.82], [0, -82]);
+  const rightDoorRotateY = useTransform(scrollYProgress, [0.62, 0.82], [0, 82]);
+  const doorsOpacity = useTransform(scrollYProgress, [0.55, 0.60, 0.84, 0.90], [0, 1, 1, 0]);
 
-  // 6. Stage 5: Interior Space Reveal & Second Window (32% -> 96%)
+  // 5. Stage 4: Interior Space Revealed Through Open Doors (72% -> 100%)
   const interiorOpacity = useTransform(
     scrollYProgress,
-    [0.30, 0.36, 0.94, 0.98],
+    [0.70, 0.82, 0.96, 1.0],
     [0, 1, 1, 0]
   );
-  const interiorScale = useTransform(scrollYProgress, [0.30, 0.42], [1.12, 1.0]);
+  const interiorScale = useTransform(scrollYProgress, [0.72, 1.0], [1.1, 1.0]);
 
-  // 7. Telemetry HUD (Active during zoom & entrance 12% -> 34%)
+  // Telemetry HUD (Active during zoom & entrance 20% -> 80%)
   const hudOpacity = useTransform(
     scrollYProgress,
-    [0.10, 0.16, 0.30, 0.34],
+    [0.18, 0.28, 0.72, 0.82],
     [0, 1, 1, 0]
   );
 
-  // Active project calculation for gallery HUD
-  const isInsideGallery = scrollProgress >= 0.35 && scrollProgress <= 0.95;
-  const galleryProgress = Math.max(0, Math.min(1, (scrollProgress - 0.36) / 0.56));
-  const activeIndex = Math.min(totalProjects - 1, Math.floor(galleryProgress * totalProjects));
-
-  // Navigation handler to smoothly scroll to any project
-  const scrollToProject = (index: number) => {
-    if (!containerRef.current) return;
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const containerTop = scrollTop + rect.top;
-    const scrollableDistance = container.offsetHeight - window.innerHeight;
-
-    const step = 0.56 / totalProjects;
-    const targetProgress = 0.36 + index * step + step * 0.3;
-    const targetY = containerTop + targetProgress * scrollableDistance;
-
-    window.scrollTo({
-      top: targetY,
-      behavior: 'smooth',
-    });
+  // Smooth scroll helper to jump directly into Selected Works
+  const scrollToProjects = () => {
+    const el = document.getElementById('selected-works');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <div ref={containerRef} className="relative w-full h-[520vh] bg-[#F9F8F6] select-none">
+    <div ref={containerRef} className="relative w-full h-[260vh] bg-[#F9F8F6] select-none">
       {/* Sticky Fullscreen Viewport Frame */}
       <div className="sticky top-0 w-full h-screen overflow-hidden">
         {/* Layer 1: Three.js Realtime 3D Scene */}
@@ -209,7 +76,7 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
           <BuildingScene scrollProgress={scrollProgress} />
         </div>
 
-        {/* Layer 2: Main 8K Architectural Building (Zooms into the entrance) */}
+        {/* Layer 2: Main 8K Architectural Building Photo (Zooms into the entrance) */}
         <motion.div
           style={{
             scale: buildingScale,
@@ -228,7 +95,7 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         </motion.div>
 
-        {/* Layer 3: Entrance Portal Close-Up */}
+        {/* Layer 3: Entrance Portal Close-Up & 2.5D Physical Double Doors */}
         <motion.div
           style={{
             opacity: entranceOpacity,
@@ -242,11 +109,11 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
             fill
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-black/25" />
+          <div className="absolute inset-0 bg-black/20" />
 
           {/* 2.5D Physical Double Doors Pivot */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[36vw] max-w-[440px] h-[60vh] flex [perspective:1000px]">
+            <div className="relative w-[34vw] max-w-[420px] h-[58vh] flex [perspective:1000px]">
               {/* Left Door */}
               <motion.div
                 style={{
@@ -274,109 +141,47 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
           </div>
         </motion.div>
 
-        {/* Layer 4: Interior Space Reveal & Second Window (One by One Projects Showcase) */}
+        {/* Layer 4: Interior Space Reveal (Camera glides through doorway into pavilion) */}
         <motion.div
           style={{
             opacity: interiorOpacity,
             scale: interiorScale,
           }}
-          className="absolute inset-0 z-25 will-change-transform overflow-hidden"
+          className="absolute inset-0 z-25 pointer-events-none will-change-transform overflow-hidden"
         >
-          {/* Interior Gallery Backdrop */}
           <Image
             src="/images/hero/hero-interior.jpg"
             alt="Interior Architectural Gallery"
             fill
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-[#F9F8F6]" />
 
-          {/* Projects Revealed One by One while Scrolling */}
-          <div className="absolute inset-0">
-            {items.map((project, idx) => (
-              <ProjectGallerySlide
-                key={project.slug || idx}
-                project={project}
-                index={idx}
-                total={totalProjects}
-                scrollYProgress={scrollYProgress}
-              />
-            ))}
-          </div>
-
-          {/* Second Window HUD: Gallery Navigation & Progress Indicators */}
-          {isInsideGallery && (
+          {/* Threshold Passed Greeting Banner */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute bottom-6 md:bottom-8 inset-x-6 md:inset-x-12 z-30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pointer-events-auto"
+              transition={{ duration: 0.6 }}
+              className="space-y-4 max-w-xl"
             >
-              {/* Left Brand Badge */}
-              <div className="hidden sm:flex items-center gap-3 text-white/80">
-                <span className="text-[10px] uppercase tracking-[0.28em] text-[#E5C378] font-medium">
-                  ARCHITECTURAL MONOGRAPH
-                </span>
-                <span className="text-white/40">·</span>
-                <span className="text-[10px] uppercase tracking-[0.2em]">
-                  CONTINUOUS FILM EXHIBITION
-                </span>
-              </div>
-
-              {/* Center: Numbered Pills (Clickable to jump) */}
-              <div className="flex items-center gap-2 p-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full shadow-xl">
-                <button
-                  onClick={() => scrollToProject(Math.max(0, activeIndex - 1))}
-                  disabled={activeIndex === 0}
-                  className="p-1.5 rounded-full text-white/70 hover:text-white disabled:opacity-30 cursor-pointer"
-                  aria-label="Previous Project"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-
-                {items.map((_, i) => {
-                  const isActive = activeIndex === i;
-                  return (
-                    <button
-                      key={i}
-                      onClick={() => scrollToProject(i)}
-                      className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-[#E5C378] text-[#181614] font-bold shadow-md scale-105'
-                          : 'text-white/70 hover:text-white hover:bg-white/10'
-                      }`}
-                    >
-                      {(i + 1).toString().padStart(2, '0')}
-                    </button>
-                  );
-                })}
-
-                <button
-                  onClick={() => scrollToProject(Math.min(totalProjects - 1, activeIndex + 1))}
-                  disabled={activeIndex === totalProjects - 1}
-                  className="p-1.5 rounded-full text-white/70 hover:text-white disabled:opacity-30 cursor-pointer"
-                  aria-label="Next Project"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Right: Quick Monograph Link */}
-              <div className="hidden sm:flex items-center gap-2">
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white hover:text-[#181614] backdrop-blur-md border border-white/30 text-white transition-all duration-300 text-[10px] uppercase tracking-[0.22em] font-medium"
-                >
-                  <span>All Commissions ({totalProjects})</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+              <span className="inline-block px-4 py-1.5 bg-black/60 backdrop-blur-md border border-[#E5C378]/40 text-[#E5C378] text-[10px] sm:text-xs uppercase tracking-[0.32em] font-medium shadow-2xl">
+                Threshold Passed · Entering Selected Commissions
+              </span>
+              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-light drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+                DISCOVERING WORKS <br />
+                <span className="editorial-italic font-normal text-[#E5C378]">FROM WITHIN</span>
+              </h2>
+              <div className="pt-2 flex items-center justify-center gap-2 text-white/80 text-xs uppercase tracking-[0.24em] font-light">
+                <span>Continue scrolling to browse commissions</span>
+                <ArrowDown className="w-3.5 h-3.5 text-[#E5C378] animate-bounce" />
               </div>
             </motion.div>
-          )}
+          </div>
         </motion.div>
 
-        {/* Layer 5: Initial Editorial Hero Typography (Active ONLY at start, unmounts cleanly) */}
-        {scrollProgress < 0.12 && (
+        {/* Layer 5: Initial Editorial Hero Typography (Fades out cleanly without overlap) */}
+        {scrollProgress < 0.18 && (
           <motion.div
             style={{
               opacity: textOpacity,
@@ -414,7 +219,7 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-2 sm:pt-4 pointer-events-auto">
                 <button
-                  onClick={() => scrollToProject(0)}
+                  onClick={scrollToProjects}
                   className="inline-flex items-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 bg-white text-[#181614] hover:bg-[#E5C378] hover:text-[#181614] transition-all duration-300 text-xs uppercase tracking-[0.24em] font-medium group shadow-2xl cursor-pointer"
                 >
                   <span>Explore Projects</span>
@@ -456,10 +261,10 @@ export default function HeroCinematic({ projects = fallbackProjects }: HeroCinem
           </div>
           <div className="text-right space-y-1">
             <p className="text-white font-sans font-medium tracking-[0.2em]">
-              DOORS PIVOTING OPEN
+              {scrollProgress > 0.65 ? 'DOORS PIVOTING OPEN' : 'APPROACHING PORTAL'}
             </p>
             <p className="text-[#E5C378] font-mono">
-              STEPPING INTO INTERIOR GALLERY →
+              {scrollProgress > 0.75 ? 'ENTERING INTERIOR ARCHIVE →' : 'CONTINUE SCROLLING'}
             </p>
           </div>
         </motion.div>

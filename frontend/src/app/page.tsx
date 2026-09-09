@@ -1,4 +1,5 @@
 import HeroCinematic from '../components/home/HeroCinematic';
+import ProjectsMonograph from '../components/home/ProjectsMonograph';
 import PhilosophySection from '../components/home/PhilosophySection';
 import StatsSection from '../components/home/StatsSection';
 import ServicesSection from '../components/home/ServicesSection';
@@ -11,9 +12,12 @@ export default async function HomePage() {
   const projects = await fetchProjects();
 
   return (
-    <div className="w-full relative">
-      {/* 1. Cinematic Architectural Journey Hero with Interior One-by-One Project Reveal */}
-      <HeroCinematic projects={projects} />
+    <div className="w-full relative bg-[#F9F8F6]">
+      {/* 1. Cinematic Architectural Journey Hero (Zooms to entrance, doors pivot open, enters interior) */}
+      <HeroCinematic />
+
+      {/* 2. Selected Commissions: Projects revealed one by one with luxury scroll animations */}
+      <ProjectsMonograph projects={projects} />
 
       {/* 3. Architectural Philosophy (01 VISION, 02 PRECISION, 03 PURPOSE) */}
       <PhilosophySection />
