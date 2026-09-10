@@ -258,13 +258,13 @@ export default function HeroCinematic({ projects: propProjects }: HeroCinematicP
               opacity: initialTextOpacity,
               y: initialTextY,
             }}
-            className="absolute inset-0 z-20 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-16 md:py-20 pointer-events-none transition-opacity duration-200"
+            className="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-8 md:px-16 lg:px-24 py-16 md:py-20 pointer-events-none transition-opacity duration-200"
           >
             <div className="max-w-5xl space-y-3">
-              <h1 className="font-serif font-light text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white tracking-tight leading-[1.05] whitespace-nowrap">
+              <h1 className="font-serif font-light text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white tracking-tight leading-[1.08] sm:whitespace-nowrap">
                 Silence in <span className="editorial-italic font-normal text-[#E2D6C3]">Structure.</span>
               </h1>
-              <p className="text-white/60 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-light">
+              <p className="text-white/60 text-[9px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] uppercase font-light max-w-sm sm:max-w-none">
                 Monolithic residences &amp; enduring spatial form
               </p>
             </div>
