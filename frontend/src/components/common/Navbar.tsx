@@ -38,7 +38,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Projects', href: '/projects' },
     { name: 'Services', href: '/#services' },
-    { name: 'About', href: '/about' },
+    { name: 'Ethos', href: '/about' },
     { name: 'Journal', href: '/#journal' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -52,9 +52,9 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 opacity-100 pointer-events-auto ${
           isDarkHero
             ? scrolled
-              ? 'py-4 bg-[#0E0D0C]/80 backdrop-blur-md border-b border-white/10 shadow-2xl'
+              ? 'py-4 bg-[#0E0D0C]/85 backdrop-blur-md border-b border-white/10 shadow-2xl'
               : 'py-6 bg-transparent'
-            : 'py-3.5 bg-[#F9F8F6]/90 backdrop-blur-md border-b border-[#E2DDD5] shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
+            : 'py-3.5 bg-[#F9F8F6]/92 backdrop-blur-md border-b border-[#E2DDD5]/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)]'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
@@ -64,15 +64,15 @@ export default function Navbar() {
             className="group flex flex-col items-start focus:outline-none"
           >
             <span
-              className={`font-serif text-xl md:text-2xl tracking-tight font-light transition-colors ${
-                isDarkHero ? 'text-white drop-shadow-md group-hover:text-[#E2D6C3]' : 'text-ink group-hover:text-bronze'
+              className={`font-serif text-xl md:text-2xl tracking-[-0.01em] font-light transition-colors ${
+                isDarkHero ? 'text-white drop-shadow-md group-hover:text-[#E2D6C3]' : 'text-[#141414] group-hover:text-[#9E7D47]'
               }`}
             >
               ATELIER VANGUARD
             </span>
             <span
-              className={`text-[9px] uppercase tracking-[0.3em] -mt-1 font-medium transition-colors ${
-                isDarkHero ? 'text-white/75 drop-shadow group-hover:text-white' : 'text-stoneCaption group-hover:text-ink'
+              className={`text-[8px] uppercase tracking-[0.36em] -mt-0.5 font-light transition-colors ${
+                isDarkHero ? 'text-white/70 drop-shadow group-hover:text-white' : 'text-[#8C8478] group-hover:text-[#141414]'
               }`}
             >
               ARCHITECTURAL PRACTICE
@@ -88,19 +88,19 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-[11px] uppercase tracking-[0.24em] transition-all duration-300 relative py-1 font-medium ${
+                  className={`text-[10px] uppercase tracking-[0.28em] transition-all duration-300 relative py-1 font-light ${
                     isActive
-                      ? isDarkHero ? 'text-[#E2D6C3] drop-shadow' : 'text-bronze'
+                      ? isDarkHero ? 'text-[#E2D6C3] drop-shadow' : 'text-[#9E7D47]'
                       : isDarkHero
-                      ? 'text-white/85 hover:text-white drop-shadow-sm'
-                      : 'text-stoneMuted hover:text-ink'
+                      ? 'text-white/80 hover:text-white drop-shadow-sm'
+                      : 'text-[#736B61] hover:text-[#141414]'
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <div
-                      className={`absolute bottom-0 left-0 right-0 h-[1.5px] ${
-                        isDarkHero ? 'bg-[#E2D6C3]' : 'bg-bronze'
+                      className={`absolute bottom-0 left-0 right-0 h-[1px] ${
+                        isDarkHero ? 'bg-[#E2D6C3]' : 'bg-[#9E7D47]'
                       }`}
                     />
                   )}
@@ -113,14 +113,14 @@ export default function Navbar() {
           <div className="hidden md:flex items-center">
             <Link
               href="/contact"
-              className={`inline-flex items-center gap-2 px-5 py-2.5 text-[11px] uppercase tracking-[0.24em] transition-all duration-300 rounded-none group font-medium ${
+              className={`inline-flex items-center gap-2.5 px-5 py-2 text-[10px] uppercase tracking-[0.26em] transition-all duration-300 group font-light ${
                 isDarkHero
-                  ? 'text-white border border-white/40 bg-white/10 hover:bg-white hover:text-[#181614] backdrop-blur-md shadow-lg'
-                  : 'text-ink border border-ink/20 hover:border-bronze hover:text-bronze hover:bg-bronze/5'
+                  ? 'text-white border border-white/30 bg-white/5 hover:bg-white hover:text-[#181614] backdrop-blur-md'
+                  : 'text-[#141414] border border-[#141414]/20 hover:border-[#141414] hover:bg-[#141414] hover:text-white'
               }`}
             >
-              <span>Start A Project</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Inquire</span>
+              <ArrowUpRight strokeWidth={1.25} className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
           </div>
 
@@ -128,11 +128,11 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`md:hidden p-2 transition-colors focus:outline-none cursor-pointer ${
-              isDarkHero ? 'text-white hover:text-[#E2D6C3]' : 'text-[#141414] hover:text-bronze'
+              isDarkHero ? 'text-white hover:text-[#E2D6C3]' : 'text-[#141414] hover:text-[#9E7D47]'
             }`}
             aria-label="Toggle Navigation"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X strokeWidth={1.25} className="w-6 h-6" /> : <Menu strokeWidth={1.25} className="w-6 h-6" />}
           </button>
         </div>
       </header>
@@ -166,13 +166,13 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="w-full py-3.5 bg-bronze text-white font-sans font-medium text-xs tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg"
+            className="w-full py-3.5 bg-[#141414] text-white border border-[#141414] font-sans font-light text-[11px] tracking-[0.26em] uppercase flex items-center justify-center gap-2 transition-colors"
           >
-            <span>Start A Commission</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <span>Initiate Commission</span>
+            <ArrowUpRight strokeWidth={1.25} className="w-3.5 h-3.5" />
           </Link>
-          <div className="text-[10px] tracking-widest uppercase text-muted text-center">
-            Studio in Kochi · Dubai · Zurich
+          <div className="text-[9px] tracking-[0.3em] uppercase text-[#8C8478] text-center font-light">
+            Kochi · Zurich · Global
           </div>
         </div>
       </div>

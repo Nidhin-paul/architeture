@@ -48,7 +48,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-32 bg-[#F9F8F6] text-[#141414] border-t border-[#E2DDD5] relative overflow-hidden">
+    <section id="services" className="py-28 md:py-36 bg-[#F9F8F6] text-[#141414] border-t border-[#E2DDD5] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Heading */}
         <motion.div
@@ -58,14 +58,16 @@ export default function ServicesSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row md:items-end justify-between pb-16 border-b border-[#E2DDD5] gap-6"
         >
-          <div>
-            <span className="eyebrow block mb-4">
-              Disciplines &amp; Expertise
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.32em] text-[#9E7D47] font-light block">
+              03 / PRACTICES &amp; DISCIPLINES
             </span>
-            <h2 className="section-heading text-ink">SERVICES</h2>
+            <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#141414] leading-[1.06] tracking-tight">
+              ARCHITECTURAL <span className="editorial-italic font-normal text-[#9E7D47]">SERVICES</span>
+            </h2>
           </div>
-          <p className="text-graphite text-xs md:text-sm font-light max-w-sm leading-relaxed">
-            Hover each practice to inspect spatial documentation and commission protocols.
+          <p className="text-[#6E685F] text-xs sm:text-sm font-light max-w-sm leading-relaxed">
+            Hover each discipline to inspect spatial documentation, site typologies, and execution protocols.
           </p>
         </motion.div>
 
@@ -81,21 +83,21 @@ export default function ServicesSection() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setActiveImage(service.image)}
-                className="py-8 group flex items-start justify-between cursor-pointer transition-colors hover:pl-2"
+                className="py-7 md:py-8 group flex items-start justify-between cursor-pointer transition-all hover:pl-2"
               >
                 <div className="space-y-2 max-w-lg">
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-bronze font-medium group-hover:text-bronzeHover transition-colors">
+                  <span className="text-[9px] uppercase tracking-[0.3em] text-[#9E7D47] font-light block group-hover:text-[#141414] transition-colors">
                     {service.category}
                   </span>
-                  <h3 className="font-serif text-2xl md:text-4xl text-ink font-light group-hover:text-bronze transition-colors">
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#141414] font-light group-hover:text-[#9E7D47] transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-graphite text-xs md:text-sm font-light leading-relaxed">
+                  <p className="text-[#5A554D] text-xs sm:text-sm font-light leading-relaxed">
                     {service.desc}
                   </p>
                 </div>
-                <div className="p-3 rounded-full border border-[#E2DDD5] text-stoneCaption group-hover:border-bronze group-hover:text-bronze group-hover:bg-bronze/10 transition-all shrink-0 mt-2">
-                  <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <div className="w-10 h-10 rounded-full border border-[#E2DDD5] text-[#8C8478] flex items-center justify-center group-hover:border-[#141414] group-hover:text-[#141414] transition-all shrink-0 mt-2">
+                  <ArrowUpRight strokeWidth={1.25} className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </motion.div>
             ))}
@@ -103,11 +105,11 @@ export default function ServicesSection() {
 
           {/* Floating Hover Image Preview Plate */}
           <div className="hidden lg:block lg:col-span-5 sticky top-32">
-            <div className="relative w-full h-[520px] overflow-hidden border border-[#E2DDD5] bg-[#F2EFE9] shadow-xl">
+            <div className="relative w-full h-[520px] overflow-hidden border border-[#E2DDD5] bg-[#F2EFE9]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeImage}
-                  initial={{ opacity: 0, scale: 1.05 }}
+                  initial={{ opacity: 0, scale: 1.03 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -122,9 +124,9 @@ export default function ServicesSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#141414]/70 via-transparent to-transparent" />
                 </motion.div>
               </AnimatePresence>
-              <div className="absolute bottom-6 left-6 right-6 text-xs uppercase tracking-widest text-white/95 flex justify-between items-center z-10 font-medium drop-shadow-sm">
-                <span>Atelier Portfolio Archive</span>
-                <span className="text-bronze font-mono">Active Documentation</span>
+              <div className="absolute bottom-6 left-6 right-6 text-[9px] uppercase tracking-[0.28em] text-white/95 flex justify-between items-center z-10 font-light drop-shadow-sm">
+                <span>Atelier Archive</span>
+                <span className="text-[#E2D6C3]">Active Specification</span>
               </div>
             </div>
           </div>

@@ -51,8 +51,8 @@ export default function ProjectsPage() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Page Header */}
         <div className="border-b border-[#E2DDD5] pb-16 mb-12">
-          <span className="text-xs uppercase tracking-[0.3em] text-bronze block mb-4 font-medium">
-            Archive Monograph
+          <span className="text-[10px] uppercase tracking-[0.32em] text-[#9E7D47] font-light block mb-4">
+            01 / MONOGRAPH ARCHIVE
           </span>
           <h1 className="font-serif text-5xl md:text-8xl font-light tracking-tight mb-6 text-[#141414]">
             SELECTED
@@ -64,15 +64,15 @@ export default function ProjectsPage() {
           </p>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap items-center gap-3 pt-10">
+          <div className="flex flex-wrap items-center gap-2.5 pt-8">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 text-xs uppercase tracking-widest transition-all duration-300 border ${
+                className={`px-4 py-1.5 text-[10px] uppercase tracking-[0.22em] transition-all duration-300 border ${
                   activeCategory === cat
-                    ? 'border-bronze text-white bg-bronze font-medium shadow-sm'
-                    : 'border-[#E2DDD5] text-[#7A746B] hover:border-[#141414] hover:text-[#141414] bg-white'
+                    ? 'border-[#141414] text-white bg-[#141414] font-normal'
+                    : 'border-[#E2DDD5] text-[#7A746B] hover:border-[#141414] hover:text-[#141414] bg-white/60'
                 }`}
               >
                 {cat}
@@ -83,7 +83,7 @@ export default function ProjectsPage() {
 
         {/* Project Grid */}
         {loading ? (
-          <div className="py-24 text-center text-[#7A746B] tracking-widest uppercase text-xs">
+          <div className="py-24 text-center text-[#8C8478] tracking-[0.28em] uppercase text-[10px] font-light">
             Retrieving Architectural Archive...
           </div>
         ) : (
@@ -92,34 +92,33 @@ export default function ProjectsPage() {
               <Link
                 key={item.slug || index}
                 href={`/projects/${item.slug}`}
-                className="group block space-y-6"
+                className="group block space-y-5"
                 data-cursor="project"
               >
                 {/* Visual */}
-                <div className="relative h-[420px] lg:h-[500px] overflow-hidden border border-[#E2DDD5] bg-[#F2EFE9] shadow-sm group-hover:shadow-md transition-shadow">
+                <div className="relative h-[400px] lg:h-[480px] overflow-hidden border border-[#E2DDD5] bg-[#EAE6DF] hover:border-[#141414]/30 transition-all duration-500">
                   <Image
                     src={item.coverImage}
                     alt={item.title}
                     fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-[#141414]/10 group-hover:bg-transparent transition-colors" />
-                  <div className="absolute top-6 left-6 px-3.5 py-1.5 bg-[#F9F8F6]/90 backdrop-blur-md text-[9px] uppercase tracking-widest text-[#141414] font-medium border border-[#E2DDD5]">
+                  <div className="absolute top-5 left-5 px-3 py-1 bg-[#F9F8F6]/95 backdrop-blur-md text-[9px] uppercase tracking-[0.25em] text-[#9E7D47] font-light border border-[#E2DDD5]">
                     {item.category}
                   </div>
                 </div>
 
                 {/* Info */}
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[11px] uppercase tracking-widest text-[#7A746B]">
+                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-[#8C8478] font-light">
                     <span>{item.location}</span>
                     <span>{item.year}</span>
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-light text-[#141414] group-hover:text-bronze transition-colors flex items-center justify-between">
+                  <h3 className="font-serif text-2xl md:text-3xl font-light text-[#141414] group-hover:text-[#9E7D47] transition-colors flex items-center justify-between">
                     <span>{item.title}</span>
-                    <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all text-bronze" />
+                    <ArrowUpRight strokeWidth={1.25} className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#9E7D47]" />
                   </h3>
-                  <p className="text-[#6B655D] text-xs md:text-sm font-light line-clamp-2">
+                  <p className="text-[#6B655D] text-xs sm:text-sm font-light line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
                 </div>

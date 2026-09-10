@@ -32,7 +32,7 @@ export default function PhilosophySection() {
   ];
 
   return (
-    <section className="py-32 bg-[#F9F8F6] text-ink border-t border-[#E2DDD5] overflow-hidden">
+    <section className="py-28 md:py-36 bg-[#F9F8F6] text-[#141414] border-t border-[#E2DDD5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <motion.div
@@ -40,20 +40,20 @@ export default function PhilosophySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between pb-20 border-b border-[#E2DDD5] gap-8"
+          className="flex flex-col md:flex-row md:items-end justify-between pb-16 md:pb-20 border-b border-[#E2DDD5] gap-8"
         >
-          <div>
-            <span className="eyebrow block mb-4">
-              Studio Philosophy
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.32em] text-[#9E7D47] font-light block">
+              02 / FOUNDATIONAL ETHOS
             </span>
-            <h2 className="section-heading text-ink max-w-2xl">
-              WE DESIGN SPACES
+            <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#141414] leading-[1.06] tracking-tight max-w-2xl">
+              SPATIAL PROPORTION &amp;
               <br />
-              <span className="editorial-italic text-bronzeAntique font-normal">THAT ENDURE.</span>
+              <span className="editorial-italic font-normal text-[#9E7D47]">PERMANENCE.</span>
             </h2>
           </div>
-          <p className="text-graphite text-xs md:text-sm font-light max-w-md leading-relaxed">
-            Architecture is more than the buildings we construct. It is how human beings experience silence, space, light, material, and time.
+          <p className="text-[#6E685F] text-xs sm:text-sm font-light max-w-md leading-relaxed">
+            Architecture is the deliberate containment of light, silence, and matter. We craft sanctuaries that age with dignity across centuries.
           </p>
         </motion.div>
 
@@ -66,37 +66,36 @@ export default function PhilosophySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center group"
+              className="py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center group"
             >
               {/* Pillar Number & Title */}
-              <div className="lg:col-span-4 space-y-3">
-                <span className="font-serif text-4xl md:text-5xl text-bronze block font-light">
-                  {pillar.num}
+              <div className="lg:col-span-4 space-y-2.5">
+                <span className="font-serif text-2xl sm:text-3xl text-[#9E7D47] block font-light">
+                  {pillar.num} <span className="text-xs font-sans font-light text-[#C2BBB0]">/ 03</span>
                 </span>
-                <h3 className="font-serif text-3xl md:text-5xl text-ink font-light tracking-tight group-hover:text-bronze transition-colors">
+                <h3 className="font-serif text-2xl sm:text-4xl text-[#141414] font-light tracking-tight group-hover:text-[#9E7D47] transition-colors">
                   {pillar.title}
                 </h3>
-                <p className="caption-stone text-stoneCaption">
+                <p className="text-[10px] uppercase tracking-[0.26em] text-[#8C8478] font-light">
                   {pillar.subtitle}
                 </p>
               </div>
 
               {/* Pillar Narrative */}
               <div className="lg:col-span-4">
-                <p className="text-graphite text-sm md:text-base font-light leading-relaxed">
+                <p className="text-[#5A554D] text-xs sm:text-sm font-light leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
 
               {/* Architectural Plate */}
-              <div className="lg:col-span-4 relative h-64 md:h-80 overflow-hidden border border-[#E2DDD5] shadow-sm">
+              <div className="lg:col-span-4 relative h-56 md:h-72 overflow-hidden border border-[#E2DDD5] bg-[#EAE6DF]">
                 <Image
                   src={pillar.image}
                   alt={pillar.title}
                   fill
-                  className="object-cover object-center filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="object-cover object-center filter grayscale contrast-[0.95] group-hover:grayscale-0 group-hover:contrast-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-[#181614]/5 group-hover:bg-transparent transition-colors" />
               </div>
             </motion.div>
           ))}

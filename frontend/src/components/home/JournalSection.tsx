@@ -37,7 +37,7 @@ export default function JournalSection() {
   ];
 
   return (
-    <section id="journal" className="py-32 bg-[#F2EFE9] text-[#141414] border-t border-[#E2DDD5] overflow-hidden">
+    <section id="journal" className="py-28 md:py-36 bg-[#F2EFE9] text-[#141414] border-t border-[#E2DDD5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Heading */}
         <motion.div
@@ -47,23 +47,25 @@ export default function JournalSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row md:items-end justify-between pb-16 border-b border-[#E2DDD5] gap-6"
         >
-          <div>
-            <span className="eyebrow block mb-4">
-              Dispatches &amp; Monograph Thoughts
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.32em] text-[#9E7D47] font-light block">
+              04 / MONOGRAPH JOURNAL
             </span>
-            <h2 className="section-heading text-ink">JOURNAL</h2>
+            <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#141414] leading-[1.06] tracking-tight">
+              CRITICAL <span className="editorial-italic font-normal text-[#9E7D47]">DISPATCHES</span>
+            </h2>
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-stoneCaption hover:text-ink transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.26em] text-[#736B61] hover:text-[#141414] transition-colors font-light"
           >
             <span>Read All Essays</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <ArrowUpRight strokeWidth={1.25} className="w-3.5 h-3.5" />
           </Link>
         </motion.div>
 
         {/* 3 Editorial Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 pt-12">
           {articles.map((item, idx) => (
             <motion.article
               key={idx}
@@ -71,44 +73,44 @@ export default function JournalSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.7, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6 }}
-              className="group space-y-6 flex flex-col justify-between bg-[#F9F8F6] p-7 border border-[#E2DDD5] shadow-sm hover:shadow-md transition-all"
+              whileHover={{ y: -4 }}
+              className="group space-y-5 flex flex-col justify-between bg-[#F9F8F6] p-6 md:p-7 border border-[#E2DDD5] hover:border-[#141414]/30 transition-all duration-500 shadow-sm"
             >
               <div className="space-y-4">
                 {/* Visual */}
-                <div className="relative h-64 md:h-72 overflow-hidden border border-[#E2DDD5]">
+                <div className="relative h-60 md:h-64 overflow-hidden border border-[#E2DDD5] bg-[#EAE6DF]">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-[#F9F8F6]/95 backdrop-blur-md text-[9px] uppercase tracking-[0.25em] text-bronze font-medium border border-[#E2DDD5]">
+                  <div className="absolute top-3.5 left-3.5 px-2.5 py-1 bg-[#F9F8F6]/95 backdrop-blur-md text-[9px] uppercase tracking-[0.24em] text-[#9E7D47] font-light border border-[#E2DDD5]">
                     {item.tag}
                   </div>
                 </div>
 
                 {/* Metadata */}
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-stoneCaption">
+                <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.24em] text-[#8C8478] font-light">
                   <span>{item.date}</span>
                   <span>{item.readTime}</span>
                 </div>
 
                 {/* Heading */}
-                <h3 className="font-serif text-xl md:text-2xl font-light text-ink group-hover:text-bronze transition-colors leading-snug">
+                <h3 className="font-serif text-xl md:text-2xl font-light text-[#141414] group-hover:text-[#9E7D47] transition-colors leading-snug">
                   {item.title}
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-graphite text-xs md:text-sm font-light leading-relaxed">
+                <p className="text-[#5A554D] text-xs font-light leading-relaxed">
                   {item.excerpt}
                 </p>
               </div>
 
               <div className="pt-4 border-t border-[#E2DDD5]">
-                <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-ink group-hover:text-bronze font-medium">
+                <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[#141414] group-hover:text-[#9E7D47] font-light transition-colors">
                   Read Essay
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight strokeWidth={1.25} className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
               </div>
             </motion.article>
