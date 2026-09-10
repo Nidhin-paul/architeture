@@ -2,7 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { fetchProjectBySlug } from '../../../lib/api';
+import { fetchProjectBySlug, fallbackProjects } from '../../../lib/api';
+
+export function generateStaticParams() {
+  return fallbackProjects.map((project) => ({
+    slug: project.slug,
+  }));
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
