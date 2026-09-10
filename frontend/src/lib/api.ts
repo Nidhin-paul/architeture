@@ -125,8 +125,9 @@ export async function fetchProjects(category?: string): Promise<Project[]> {
       headers: { Accept: 'application/json' },
     });
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    const json = await res.json();
-    return json.data || fallbackProjects;
+    const text = await res.text();
+    const json = text ? JSON.parse(text) : null;
+    return json?.data || fallbackProjects;
   } catch (err) {
     console.warn('[API Client] Using local project cache fallback:', err);
     if (category && category !== 'All') {
@@ -143,10 +144,11 @@ export async function fetchProjectBySlug(slug: string): Promise<{ project: Proje
       headers: { Accept: 'application/json' },
     });
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    const json = await res.json();
+    const text = await res.text();
+    const json = text ? JSON.parse(text) : null;
     return {
-      project: json.data,
-      nextProject: json.nextProject,
+      project: json?.data || fallbackProjects[0],
+      nextProject: json?.nextProject,
     };
   } catch (err) {
     console.warn('[API Client] Single project fallback:', err);
