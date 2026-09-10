@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Compass, Sparkles, MapPin, Calendar, Maximize2 } from 'lucide-react';
+import { ArrowUpRight, Compass, Maximize2 } from 'lucide-react';
 import { Project } from '../../types';
 import { fallbackProjects } from '../../lib/api';
 
@@ -125,25 +125,6 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
                           priority={idx < 2}
                           className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
                         />
-
-                        {/* Subtle Ambient Vignette */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
-
-                        {/* Floating Metadata Badges */}
-                        <div className="absolute top-6 left-6 z-10 flex items-center gap-2">
-                          <span className="px-3.5 py-1.5 bg-black/60 backdrop-blur-md border border-white/20 text-[#E5C378] text-[10px] sm:text-xs uppercase tracking-[0.25em] font-medium">
-                            MONOGRAPH {formattedIndex} / {totalCount}
-                          </span>
-                          <span className="hidden sm:inline-block px-3 py-1.5 bg-white/90 backdrop-blur-md text-[#141414] text-[10px] uppercase tracking-[0.2em] font-medium">
-                            {project.category}
-                          </span>
-                        </div>
-
-                        {/* Hover Prompt */}
-                        <div className="absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2 bg-white text-[#141414] text-xs uppercase tracking-[0.22em] font-medium shadow-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                          <span>View Case Study</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </div>
                       </Link>
                     </div>
 
@@ -153,22 +134,11 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
                         isEven ? 'lg:order-2 lg:pl-4' : 'lg:order-1 lg:pr-4'
                       }`}
                     >
-                      {/* Numerals & Category */}
-                      <div className="flex items-center justify-between border-b border-[#E2DDD5] pb-4">
+                      {/* Numerals */}
+                      <div className="border-b border-[#E2DDD5] pb-4">
                         <span className="font-serif text-3xl sm:text-4xl text-[#9E7D47] font-light">
                           {formattedIndex}
                         </span>
-                        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.24em] text-[#6E685F]">
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="w-3 h-3 text-[#9E7D47]" />
-                            {project.location}
-                          </span>
-                          <span>·</span>
-                          <span className="flex items-center gap-1.5">
-                            <Calendar className="w-3 h-3 text-[#9E7D47]" />
-                            {project.year}
-                          </span>
-                        </div>
                       </div>
 
                       {/* Title */}
