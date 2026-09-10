@@ -115,6 +115,17 @@ export const fallbackProjects: Project[] = [
 ];
 
 export async function fetchProjects(category?: string): Promise<Project[]> {
+  const isLocalBackend = !process.env.NEXT_PUBLIC_API_URL || API_BASE.includes('localhost');
+  const isServerBuild = typeof window === 'undefined';
+
+  // In production builds without a deployed backend, use offline fallback data directly
+  if (process.env.NODE_ENV === 'production' && isServerBuild && isLocalBackend) {
+    if (category && category !== 'All') {
+      return fallbackProjects.filter((p) => p.category.toLowerCase() === category.toLowerCase());
+    }
+    return fallbackProjects;
+  }
+
   try {
     const url = new URL(`${API_BASE}/projects`);
     if (category && category !== 'All') {
@@ -129,7 +140,6 @@ export async function fetchProjects(category?: string): Promise<Project[]> {
     const json = text ? JSON.parse(text) : null;
     return json?.data || fallbackProjects;
   } catch (err) {
-    console.warn('[API Client] Using local project cache fallback:', err);
     if (category && category !== 'All') {
       return fallbackProjects.filter((p) => p.category.toLowerCase() === category.toLowerCase());
     }
@@ -138,6 +148,24 @@ export async function fetchProjects(category?: string): Promise<Project[]> {
 }
 
 export async function fetchProjectBySlug(slug: string): Promise<{ project: Project; nextProject?: any }> {
+  const isLocalBackend = !process.env.NEXT_PUBLIC_API_URL || API_BASE.includes('localhost');
+  const isServerBuild = typeof window === 'undefined';
+
+  if (process.env.NODE_ENV === 'production' && isServerBuild && isLocalBackend) {
+    const proj = fallbackProjects.find((p) => p.slug === slug.toLowerCase()) || fallbackProjects[0];
+    const idx = fallbackProjects.findIndex((p) => p.slug === proj.slug);
+    const nextItem = fallbackProjects[(idx + 1) % fallbackProjects.length];
+    return {
+      project: proj,
+      nextProject: {
+        title: nextItem.title,
+        slug: nextItem.slug,
+        location: nextItem.location,
+        coverImage: nextItem.coverImage,
+      },
+    };
+  }
+
   try {
     const res = await fetch(`${API_BASE}/projects/${slug}`, {
       next: { revalidate: 30 },
@@ -151,7 +179,6 @@ export async function fetchProjectBySlug(slug: string): Promise<{ project: Proje
       nextProject: json?.nextProject,
     };
   } catch (err) {
-    console.warn('[API Client] Single project fallback:', err);
     const proj = fallbackProjects.find((p) => p.slug === slug.toLowerCase()) || fallbackProjects[0];
     const idx = fallbackProjects.findIndex((p) => p.slug === proj.slug);
     const nextItem = fallbackProjects[(idx + 1) % fallbackProjects.length];
