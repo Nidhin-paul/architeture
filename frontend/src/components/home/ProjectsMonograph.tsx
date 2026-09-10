@@ -37,7 +37,7 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-16 md:pb-24 border-b border-[#E2DDD5] gap-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-12 md:pb-16 border-b border-[#E2DDD5] gap-8">
           <div className="space-y-4 max-w-2xl">
             <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#141414] leading-[1.08] tracking-tight">
               SELECTED <span className="editorial-italic font-normal text-[#9E7D47]">COMMISSIONS</span>
@@ -48,7 +48,7 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
           </div>
 
           {/* Category Filter Pills & Archive Link */}
-          <div className="flex flex-wrap items-center gap-3 self-start lg:self-end shrink-0">
+          <div className="flex flex-wrap items-center gap-3 self-start md:self-center shrink-0 md:-translate-y-3">
             <div className="inline-flex items-center gap-1 p-1 bg-white border border-[#E2DDD5] rounded-full shadow-sm max-w-full overflow-x-auto">
               {categories.map((category) => {
                 const isActive = selectedCategory === category;
