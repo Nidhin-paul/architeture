@@ -127,8 +127,12 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 transition-colors focus:outline-none cursor-pointer ${
-              isDarkHero ? 'text-white hover:text-[#E2D6C3]' : 'text-[#141414] hover:text-[#9E7D47]'
+            className={`md:hidden p-2 transition-colors focus:outline-none cursor-pointer relative z-50 ${
+              mobileMenuOpen
+                ? 'text-white hover:text-[#E2D6C3]'
+                : isDarkHero
+                ? 'text-white hover:text-[#E2D6C3]'
+                : 'text-[#141414] hover:text-[#9E7D47]'
             }`}
             aria-label="Toggle Navigation"
           >
@@ -139,14 +143,14 @@ export default function Navbar() {
 
       {/* Fullscreen Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[#F9F8F6]/98 backdrop-blur-xl md:hidden flex flex-col justify-between p-8 pt-28 transition-all duration-300 ${
+        className={`fixed inset-0 z-40 bg-[#0E0D0C]/96 backdrop-blur-2xl md:hidden flex flex-col justify-between p-8 pt-28 transition-all duration-300 ${
           mobileMenuOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-4'
         }`}
       >
         <div className="flex flex-col gap-6">
-          <span className="text-[10px] tracking-widest uppercase text-bronze font-medium">
+          <span className="text-[10px] tracking-[0.3em] uppercase text-[#9E7D47] font-light">
             Navigation
           </span>
           {navLinks.map((link, idx) => (
@@ -154,24 +158,24 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="font-serif text-3xl text-[#141414] hover:text-bronze transition-colors"
+              className="font-serif text-3xl sm:text-4xl text-white hover:text-[#E2D6C3] transition-colors flex items-baseline font-light"
             >
-              <span className="text-xs font-mono text-muted mr-4">0{idx + 1}</span>
-              {link.name}
+              <span className="text-xs font-mono text-white/40 mr-4 font-light">0{idx + 1}</span>
+              <span className="text-white hover:text-[#E2D6C3] transition-colors">{link.name}</span>
             </Link>
           ))}
         </div>
 
-        <div className="border-t border-[#E2DDD5] pt-6 space-y-4">
+        <div className="border-t border-white/15 pt-6 space-y-4">
           <Link
             href="/contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="w-full py-3.5 bg-[#141414] text-white border border-[#141414] font-sans font-light text-[11px] tracking-[0.26em] uppercase flex items-center justify-center gap-2 transition-colors"
+            className="w-full py-3.5 bg-white text-[#141414] hover:bg-[#E2D6C3] border border-white font-sans font-light text-[11px] tracking-[0.26em] uppercase flex items-center justify-center gap-2 transition-colors"
           >
             <span>Initiate Commission</span>
             <ArrowUpRight strokeWidth={1.25} className="w-3.5 h-3.5" />
           </Link>
-          <div className="text-[9px] tracking-[0.3em] uppercase text-[#8C8478] text-center font-light">
+          <div className="text-[9px] tracking-[0.3em] uppercase text-white/50 text-center font-light">
             Kochi · Zurich · Global
           </div>
         </div>
