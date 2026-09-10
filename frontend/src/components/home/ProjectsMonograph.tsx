@@ -39,12 +39,6 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between pb-16 md:pb-24 border-b border-[#E2DDD5] gap-8">
           <div className="space-y-4 max-w-2xl">
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#9E7D47] animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.32em] text-[#9E7D47] font-medium">
-                Monograph Collection · 2024–2026
-              </span>
-            </div>
             <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#141414] leading-[1.08] tracking-tight">
               SELECTED <span className="editorial-italic font-normal text-[#9E7D47]">COMMISSIONS</span>
             </h2>
@@ -54,17 +48,17 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
           </div>
 
           {/* Category Filter Pills & Archive Link */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="flex flex-wrap items-center gap-2 p-1 bg-white border border-[#E2DDD5] rounded-full shadow-sm">
+          <div className="flex flex-wrap items-center gap-3 self-start lg:self-end shrink-0">
+            <div className="inline-flex items-center gap-1 p-1 bg-white border border-[#E2DDD5] rounded-full shadow-sm max-w-full overflow-x-auto">
               {categories.map((category) => {
                 const isActive = selectedCategory === category;
                 return (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`relative px-4 py-2 rounded-full text-[11px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                    className={`relative px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0 ${
                       isActive
-                        ? 'text-white font-medium shadow'
+                        ? 'text-white font-medium shadow-sm'
                         : 'text-[#6E685F] hover:text-[#141414]'
                     }`}
                   >
@@ -83,7 +77,7 @@ export default function ProjectsMonograph({ projects: propProjects }: ProjectsMo
 
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs uppercase tracking-[0.22em] border border-[#141414]/20 hover:border-[#141414] hover:bg-[#141414] hover:text-white transition-all duration-300 font-medium rounded-full"
+              className="inline-flex items-center gap-2 px-4 py-2 text-[11px] uppercase tracking-[0.2em] border border-[#141414]/20 hover:border-[#141414] hover:bg-[#141414] hover:text-white transition-all duration-300 font-medium rounded-full whitespace-nowrap shrink-0 shadow-sm"
             >
               <Compass className="w-3.5 h-3.5 text-[#9E7D47]" />
               <span>Full Archive ({allProjects.length})</span>

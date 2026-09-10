@@ -71,12 +71,6 @@ export default function HorizontalProjects({ projects: propProjects }: Horizonta
         {/* Section Header & Architectural Category Tabs */}
         <div className="px-6 md:px-16 flex flex-col md:flex-row md:items-end justify-between pb-12 gap-8 border-b border-[#E2DDD5]">
           <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-bronze animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.3em] text-bronze font-medium">
-                Monograph Collection · 2024–2026
-              </span>
-            </div>
             <h2 className="section-heading text-[#141414]">
               SELECTED WORKS
             </h2>
