@@ -34,3 +34,7 @@ Thumbs.db
 
 # Temporary / Extracted references
 architect_uxhub-main/
+frames/
+*.mp4
+*.tsbuildinfo
+

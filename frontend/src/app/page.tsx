@@ -13,8 +13,8 @@ export default async function HomePage() {
 
   return (
     <div className="w-full relative bg-[#F9F8F6]">
-      {/* 1. Cinematic Architectural Journey Hero (Zooms to entrance, doors pivot open, enters interior) */}
-      <HeroCinematic />
+      {/* 1. Cinematic Architectural Journey Hero (Zooms to entrance, after frame 107 projects zoom in on scroll) */}
+      <HeroCinematic projects={projects} />
 
       {/* 2. Selected Commissions: Projects revealed one by one with luxury scroll animations */}
       <ProjectsMonograph projects={projects} />

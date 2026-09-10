@@ -3,7 +3,6 @@ import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '../components/common/SmoothScroll';
 import CustomCursor from '../components/common/CustomCursor';
-import Preloader from '../components/common/Preloader';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 
@@ -24,6 +23,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
+  icons: {
+    icon: '/icon.svg',
+  },
   title: 'Atelier Vanguard | International Architectural Practice',
   description:
     'Award-winning architectural studio dedicated to monumental brutalist residences, cultural institutions, and enduring spatial experiences.',
@@ -55,7 +57,6 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="bg-[#F9F8F6] text-[#141414] selection:bg-[#9E7D47] selection:text-white font-sans antialiased">
         <SmoothScroll>
-          <Preloader />
           <CustomCursor />
           <Navbar />
           <main className="min-h-screen relative">{children}</main>

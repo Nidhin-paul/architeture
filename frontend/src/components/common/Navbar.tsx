@@ -6,17 +6,34 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar() {
+  const [heroFinished, setHeroFinished] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 40);
+
+      if (pathname === '/') {
+        const selectedWorks = document.getElementById('selected-works');
+        if (selectedWorks) {
+          const rect = selectedWorks.getBoundingClientRect();
+          // Hero section animation ends when selectedWorks enters top of viewport
+          setHeroFinished(rect.top <= 100);
+        } else {
+          // Fallback based on viewport scroll
+          setHeroFinished(window.scrollY > window.innerHeight * 2.4);
+        }
+      } else {
+        setHeroFinished(true);
+      }
     };
+
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
   const navLinks = [
     { name: 'Projects', href: '/projects' },
@@ -26,13 +43,18 @@ export default function Navbar() {
     { name: 'Contact', href: '/contact' },
   ];
 
+  // Determine if navbar is currently hovering over the dark cinematic hero section
+  const isDarkHero = pathname === '/' && !heroFinished;
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'py-3.5 bg-[#F9F8F6]/90 backdrop-blur-md border-b border-[#E2DDD5] shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
-            : 'py-6 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 opacity-100 pointer-events-auto ${
+          isDarkHero
+            ? scrolled
+              ? 'py-4 bg-[#0E0D0C]/80 backdrop-blur-md border-b border-white/10 shadow-2xl'
+              : 'py-6 bg-transparent'
+            : 'py-3.5 bg-[#F9F8F6]/90 backdrop-blur-md border-b border-[#E2DDD5] shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
@@ -43,14 +65,14 @@ export default function Navbar() {
           >
             <span
               className={`font-serif text-xl md:text-2xl tracking-tight font-light transition-colors ${
-                scrolled ? 'text-ink group-hover:text-bronze' : 'text-white drop-shadow-md group-hover:text-[#E5C378]'
+                isDarkHero ? 'text-white drop-shadow-md group-hover:text-[#E2D6C3]' : 'text-ink group-hover:text-bronze'
               }`}
             >
               ATELIER VANGUARD
             </span>
             <span
               className={`text-[9px] uppercase tracking-[0.3em] -mt-1 font-medium transition-colors ${
-                scrolled ? 'text-stoneCaption group-hover:text-ink' : 'text-white/75 drop-shadow group-hover:text-white'
+                isDarkHero ? 'text-white/75 drop-shadow group-hover:text-white' : 'text-stoneCaption group-hover:text-ink'
               }`}
             >
               ARCHITECTURAL PRACTICE
@@ -61,23 +83,24 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-8 lg:gap-10">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
+
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   className={`text-[11px] uppercase tracking-[0.24em] transition-all duration-300 relative py-1 font-medium ${
                     isActive
-                      ? scrolled ? 'text-bronze' : 'text-[#E5C378] drop-shadow'
-                      : scrolled
-                      ? 'text-stoneMuted hover:text-ink'
-                      : 'text-white/85 hover:text-white drop-shadow-sm'
+                      ? isDarkHero ? 'text-[#E2D6C3] drop-shadow' : 'text-bronze'
+                      : isDarkHero
+                      ? 'text-white/85 hover:text-white drop-shadow-sm'
+                      : 'text-stoneMuted hover:text-ink'
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <div
                       className={`absolute bottom-0 left-0 right-0 h-[1.5px] ${
-                        scrolled ? 'bg-bronze' : 'bg-[#E5C378]'
+                        isDarkHero ? 'bg-[#E2D6C3]' : 'bg-bronze'
                       }`}
                     />
                   )}
@@ -91,9 +114,9 @@ export default function Navbar() {
             <Link
               href="/contact"
               className={`inline-flex items-center gap-2 px-5 py-2.5 text-[11px] uppercase tracking-[0.24em] transition-all duration-300 rounded-none group font-medium ${
-                scrolled
-                  ? 'text-ink border border-ink/20 hover:border-bronze hover:text-bronze hover:bg-bronze/5'
-                  : 'text-white border border-white/40 bg-white/10 hover:bg-white hover:text-[#181614] backdrop-blur-md shadow-lg'
+                isDarkHero
+                  ? 'text-white border border-white/40 bg-white/10 hover:bg-white hover:text-[#181614] backdrop-blur-md shadow-lg'
+                  : 'text-ink border border-ink/20 hover:border-bronze hover:text-bronze hover:bg-bronze/5'
               }`}
             >
               <span>Start A Project</span>
@@ -104,7 +127,9 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-[#141414] hover:text-bronze transition-colors focus:outline-none"
+            className={`md:hidden p-2 transition-colors focus:outline-none cursor-pointer ${
+              isDarkHero ? 'text-white hover:text-[#E2D6C3]' : 'text-[#141414] hover:text-bronze'
+            }`}
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
